@@ -1,5 +1,9 @@
 resource "aws_vpc" "vpc" {
   cidr_block = var.cidr_block
+
+  tags = {
+    Name = var.name
+  }
 }
 
 resource "aws_subnet" "subnet" {
@@ -7,7 +11,8 @@ resource "aws_subnet" "subnet" {
 
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.subnets[count.index]
+
   tags = {
-    Name = var.name
+    Name = "${var.name}-${count.index}"
   }
 }
