@@ -3,6 +3,10 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "name" {
+  type = string
+}
+
 variable "cidr_block" {
   type = string
 }
