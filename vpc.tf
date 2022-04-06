@@ -28,3 +28,10 @@ resource "aws_subnet" "public-subnets" {
     Name = "${var.name}-public-${count.index}"
   }
 }
+
+resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr_blocks" {
+  count = length(var.secondary_cidr_blocks)
+
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.secondary_cidr_blocks[count.index]
+}

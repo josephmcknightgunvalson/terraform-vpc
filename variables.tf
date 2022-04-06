@@ -20,3 +20,8 @@ variable "public_subnets" {
   type    = list(string)
   default = []
 }
+
+variable "secondary_cidr_blocks" {
+  type    = list(string)
+  default = []
+}
