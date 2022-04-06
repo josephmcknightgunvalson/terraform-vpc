@@ -11,7 +11,12 @@ variable "cidr_block" {
   type = string
 }
 
-variable "subnets" {
+variable "private_subnets" {
+  type    = list(string)
+  default = []
+}
+
+variable "public_subnets" {
   type    = list(string)
   default = []
 }
