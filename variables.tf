@@ -1,3 +1,7 @@
+terraform {
+  experiments = [module_variable_optional_attrs]
+}
+
 variable "region" {
   type    = string
   default = "us-east-1"
@@ -11,13 +15,13 @@ variable "cidr_block" {
   type = string
 }
 
-variable "private_subnets" {
-  type    = list(string)
-  default = []
-}
-
-variable "public_subnets" {
-  type    = list(string)
+variable "subnets" {
+  type = list(object({
+    cidr_block  = string
+    zone        = optional(string)
+    public      = bool
+    nat_gateway = optional(bool)
+  }))
   default = []
 }
 
