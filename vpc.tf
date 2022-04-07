@@ -6,26 +6,16 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-resource "aws_subnet" "private-subnets" {
-  count = length(var.private_subnets)
-
-  vpc_id     = aws_vpc.vpc.id
-  cidr_block = var.private_subnets[count.index]
-
-  tags = {
-    Name = "${var.name}-private-${count.index}"
-  }
-}
-
-resource "aws_subnet" "public-subnets" {
-  count = length(var.public_subnets)
+resource "aws_subnet" "subnets" {
+  count = length(var.subnets)
 
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.public_subnets[count.index]
-  map_public_ip_on_launch = true
+  cidr_block              = var.subnets[count.index].cidr_block
+  map_public_ip_on_launch = var.subnets[count.index].public
+  availability_zone       = var.subnets[count.index].zone != null ? var.subnets[count.index].zone : null
 
   tags = {
-    Name = "${var.name}-public-${count.index}"
+    Name = "${var.name}-${count.index}"
   }
 }
 
