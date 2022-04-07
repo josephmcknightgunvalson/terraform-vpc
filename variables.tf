@@ -15,12 +15,18 @@ variable "cidr_block" {
   type = string
 }
 
-variable "subnets" {
+variable "public_subnets" {
   type = list(object({
-    cidr_block  = string
-    zone        = optional(string)
-    public      = bool
-    nat_gateway = optional(bool)
+    cidr_block = string
+    zone       = optional(string)
+  }))
+  default = []
+}
+
+variable "private_subnets" {
+  type = list(object({
+    cidr_block = string
+    zone       = optional(string)
   }))
   default = []
 }
